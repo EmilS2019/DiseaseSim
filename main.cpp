@@ -5,17 +5,6 @@
 #include "Matrix.h"
 #define LOG(x) std::cout << x << std::endl
 #include <math.h>
-float getThird(float* values)
-{
-        values[3] = 2.222;
-        return values[3];
-}
-
-void rotationMatrixLinearTransformation(float* vect, float angle)
-{
-    vect[0] = vect[0]*cos(angle) - vect[1]*sin(angle);
-    vect[1] = vect[0]*sin(angle) + vect[1]*cos(angle);
-}
 
 int main()
 {
@@ -25,11 +14,11 @@ int main()
     LOG(ptr);*/
     // Create the main window
 
-    int t[4] = {1,2,3,4};
+    /*int t[4] = {1,2,3,4};
     int (*ptr)[4] = &t;
     //LOG(ptr);
 
-    float arr[4] = {1,2,3,65};
+    float arr[4] = {1,2,3,65};*/
     //LOG(getThird(arr));
     //LOG(arr[3]);
 
@@ -45,27 +34,27 @@ int main()
         return EXIT_FAILURE;
     sf::Sprite sprite(texture);
 
-    Rectangle rec = Rectangle(500,500,40,40,sf::Color(200,100,150));
+    Rectangle rec = Rectangle(100,500,20,20,sf::Color(200,100,150));
+    rec.setVelocity(0.003,0.0008);
 
-	int n = 0;
-	float directionVector[2]= {0.01, 0};
-    float angleChange = 3;
-	rotationMatrixLinearTransformation(directionVector, angleChange);
+	const float PI = 3.1415693;
 
-    LOG(directionVector[0]);
+    int n = 0;
 
 	// Start the game loop
     while (app.isOpen())
     {
         app.clear();
 
-        if (n%10000==0)
+        if (n%3000==0)
         {
-            LOG(angleChange+n/400);
-            rotationMatrixLinearTransformation(directionVector, angleChange+n/400);
+            float angleChange = 3.14;
+            rec.rotateRect(0.31415);
+            LOG(rec.velVector[0]+rec.velVector[1]);
+            //LOG(rec.getSpeed());
         }
         n++;
-        rec.Move(directionVector[0],directionVector[1]);
+        rec.Move(rec.velVector[0],rec.velVector[1]);
         app.draw(rec.getRect());
 
         // Process events
@@ -76,8 +65,6 @@ int main()
             if (event.type == sf::Event::Closed)
                 app.close();
         }
-
-
 
 
         for (int i=0; i<10; i++)

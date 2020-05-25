@@ -11,7 +11,7 @@
 	"SFML/System.hpp"
 	"SFML/Network.hpp"
 
-1589980229 source:c:\users\emil\documents\codeblocks programms\worldmapdisease\main.cpp
+1590261737 source:c:\users\emil\documents\codeblocks programms\worldmapdisease\main.cpp
 	<SFML/Graphics.hpp>
 	<iostream>
 	<Game.h>
@@ -607,10 +607,11 @@
 	<SFML/Network/IpAddress.hpp>
 	<vector>
 
-1589961729 source:c:\users\emil\documents\codeblocks programms\worldmapdisease\src\rectangle.cpp
+1590261787 source:c:\users\emil\documents\codeblocks programms\worldmapdisease\src\rectangle.cpp
 	"Rectangle.h"
+	<math.h>
 
-1589918979 c:\users\emil\documents\codeblocks programms\worldmapdisease\include\rectangle.h
+1590256198 c:\users\emil\documents\codeblocks programms\worldmapdisease\include\rectangle.h
 	<SFML/Graphics.hpp>
 
 1589976999 source:c:\users\emil\documents\codeblocks programms\worldmapdisease\src\matrix.cpp

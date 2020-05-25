@@ -10,9 +10,17 @@ class Rectangle
 
         Rectangle(float x, float y, float width, float height, sf::Color c);
 
-        Move(float dx, float dy);
+
+        void Move(float dx, float dy);
+        void rotateRect(float radians);
 
         sf::RectangleShape getRect();
+
+        void setVelocity(float xvel, float yvel);
+        float getSpeed();
+        float velVector[2];
+    private:
+
 };
 
 #endif // RECTANGLE_H

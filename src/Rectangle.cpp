@@ -18,8 +18,29 @@ sf::RectangleShape Rectangle::getRect()
     return rect;
 }
 
-Rectangle::Move(float dx, float dy)
+void Rectangle::Move(float dx, float dy)
 {
-    this->x += dx;
-    this->y += dy;
+    this->x += velVector[0];
+    this->y += velVector[1];
+}
+
+
+void Rectangle::setVelocity(float x, float y)
+{
+    this->velVector[0] = x;
+    this->velVector[1] = y;
+}
+
+#include <math.h>
+float Rectangle::getSpeed()
+{
+    //Pythagorean theorem
+    return sqrt(pow(velVector[0],2) + pow(velVector[1],2));
+}
+
+void Rectangle::rotateRect(float radians)
+{
+    //Linear transformation
+    this->velVector[0] = velVector[0]*cos(radians) - velVector[1]*sin(radians);
+    this->velVector[1] = velVector[0]*sin(radians) + velVector[1]*cos(radians);
 }
