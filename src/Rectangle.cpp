@@ -41,6 +41,7 @@ float Rectangle::getSpeed()
 void Rectangle::rotateRect(float radians)
 {
     //Linear transformation
-    this->velVector[0] = velVector[0]*cos(radians) - velVector[1]*sin(radians);
-    this->velVector[1] = velVector[0]*sin(radians) + velVector[1]*cos(radians);
+    float velVector0 = velVector[0];
+    this->velVector[0] = velVector[0]*cos(radians) + velVector[1]*sin(radians);
+    this->velVector[1] = -velVector0*sin(radians) + velVector[1]*cos(radians);
 }

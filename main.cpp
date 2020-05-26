@@ -6,8 +6,35 @@
 #define LOG(x) std::cout << x << std::endl
 #include <math.h>
 
+#include <random>
+void normaldist()
+{
+    const int nrolls=3;  // number of experiments
+    const int nstars=100;    // maximum number of stars to distribute
+
+    std::default_random_engine generator;
+    std::normal_distribution<double> distribution(5.0,2.0);
+
+    int p[10]={};
+
+    for (int i=0; i<nrolls; ++i) {
+    double number = distribution(generator);
+    if ((number>=0.0)&&(number<10.0)) ++p[int(number)];
+    }
+
+    std::cout << "normal_distribution (5.0,2.0):" << std::endl;
+
+    for (int i=0; i<10; ++i) {
+    std::cout << i << "-" << (i+1) << ": ";
+    std::cout << std::string(p[i]*nstars/nrolls,'*') << std::endl;
+    }
+    LOG()
+}
+
+
 int main()
 {
+    stuff();
     LOG("Yee haw howdy partner");
     /*int test = 5;
     void* ptr = &test;
@@ -34,24 +61,28 @@ int main()
         return EXIT_FAILURE;
     sf::Sprite sprite(texture);
 
-    Rectangle rec = Rectangle(100,500,20,20,sf::Color(200,100,150));
-    rec.setVelocity(0.003,0.0008);
+    Rectangle rec = Rectangle(500,100,20,20,sf::Color(200,100,150));
+    rec.setVelocity(0.002,0.002);
 
 	const float PI = 3.1415693;
 
     int n = 0;
 
+    for (int i=0; i<30; i++)
+    {
+        //LOG(rand()%6);
+
+    }
 	// Start the game loop
     while (app.isOpen())
     {
         app.clear();
 
-        if (n%3000==0)
+        if (n%10000==0)
         {
             float angleChange = 3.14;
-            rec.rotateRect(0.31415);
-            LOG(rec.velVector[0]+rec.velVector[1]);
-            //LOG(rec.getSpeed());
+            rec.rotateRect(3.1415/2);
+            LOG(rec.getSpeed());
         }
         n++;
         rec.Move(rec.velVector[0],rec.velVector[1]);
