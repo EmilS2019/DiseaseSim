@@ -8,11 +8,14 @@ class Rectangle
         float x,y, width, height;
         sf::Color color;
 
+        Rectangle();
         Rectangle(float x, float y, float width, float height, sf::Color c);
 
 
         void Move(float dx, float dy);
         void rotateRect(float radians);
+        void avoidEdge();
+        void randomRotation(int tenthPercentileOdds,float rotation);
 
         sf::RectangleShape getRect();
 
@@ -20,6 +23,7 @@ class Rectangle
         float getSpeed();
         float velVector[2];
     private:
+        sf::RectangleShape rectangle;
 
 };
 

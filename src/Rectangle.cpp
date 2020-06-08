@@ -9,6 +9,10 @@ Rectangle::Rectangle(float x, float y, float width, float height, sf::Color c)
     this->height=height;
 }
 
+Rectangle::Rectangle()
+{
+
+}
 
 sf::RectangleShape Rectangle::getRect()
 {
@@ -24,6 +28,14 @@ void Rectangle::Move(float dx, float dy)
     this->y += velVector[1];
 }
 
+void Rectangle::randomRotation(int tenthPercentileOdds, float rotation)
+{
+    int X = rand()%(9);
+    if (X < tenthPercentileOdds)
+    {
+        rotateRect(rotation);
+    }
+}
 
 void Rectangle::setVelocity(float x, float y)
 {
@@ -45,3 +57,19 @@ void Rectangle::rotateRect(float radians)
     this->velVector[0] = velVector[0]*cos(radians) + velVector[1]*sin(radians);
     this->velVector[1] = -velVector0*sin(radians) + velVector[1]*cos(radians);
 }
+
+#include "SFML/Window.hpp"
+void Rectangle::avoidEdge()
+{
+    if(x + width > 1000 || x - width < 0)
+    {
+        velVector[0] *= -1;
+    }
+
+    if(y + height > 1000 || y - height < 0)
+    {
+        velVector[1] *= -1;
+    }
+}
+
+

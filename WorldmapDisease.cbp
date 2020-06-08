@@ -12,10 +12,11 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
-					<Add option="-g" />
 					<Add directory="include" />
+					<Add directory="./" />
 				</Compiler>
 				<Linker>
+					<Add option="-s" />
 					<Add library="sfml-graphics-d" />
 					<Add library="sfml-window-d" />
 					<Add library="sfml-system-d" />
@@ -29,6 +30,7 @@
 				<Compiler>
 					<Add option="-O2" />
 					<Add directory="include" />
+					<Add directory="./" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -40,7 +42,8 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
-			<Add directory="C:/SFML-2.5.1/include" />
+			<Add option="-std=gnu++14" />
+			<Add directory="E:/SFML-2.5.1/include" />
 		</Compiler>
 		<Linker>
 			<Add library="mingw32" />
@@ -48,8 +51,10 @@
 			<Add library="gdi32" />
 			<Add library="winmm" />
 			<Add library="dxguid" />
-			<Add directory="C:/SFML-2.5.1/lib" />
+			<Add directory="E:/SFML-2.5.1/lib" />
 		</Linker>
+		<Unit filename="Math.cpp" />
+		<Unit filename="Math.h" />
 		<Unit filename="cb.bmp" />
 		<Unit filename="include/Matrix.h" />
 		<Unit filename="include/Rectangle.h" />
@@ -57,9 +62,6 @@
 		<Unit filename="src/Matrix.cpp" />
 		<Unit filename="src/Rectangle.cpp" />
 		<Extensions>
-			<code_completion />
-			<envvars />
-			<debugger />
 			<lib_finder disable_auto="1" />
 		</Extensions>
 	</Project>
