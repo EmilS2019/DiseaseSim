@@ -1,7 +1,7 @@
 #ifndef RECTANGLE_H
 #define RECTANGLE_H
 #include <SFML/Graphics.hpp>
-
+#include "../Math.h"
 class Rectangle
 {
     public:
@@ -9,6 +9,7 @@ class Rectangle
         sf::Color color;
 
         Rectangle();
+        ~Rectangle();
         Rectangle(float x, float y, float width, float height, sf::Color c);
 
 
@@ -22,7 +23,18 @@ class Rectangle
         void setVelocity(float xvel, float yvel);
         float getSpeed();
         float velVector[2];
+
+        Math math;
+
+        enum conditions {suceptible, sick, dead, immune};
+        void sneeze(float range, int arrayLenght, Rectangle* suceptibles);
+        void die();
+        void changeCondition(conditions condition);
+        conditions condition;
+
+
     private:
+
         sf::RectangleShape rectangle;
 
 };

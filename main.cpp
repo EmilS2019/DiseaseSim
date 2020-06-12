@@ -36,12 +36,30 @@ void init()
     math.normal(numberOfRotations, norm);
 
 
+    recs[6].changeCondition(recs[6].sick);
 }
-    Rectangle line = Rectangle(100,100,1,400,sf::Color(255,255,255));
+Rectangle line = Rectangle(100,100,1,400,sf::Color(255,255,255));
+
 
 void update()
 {
-    app.draw(line.getRect());
+    if (n%100 == 0)
+    {
+        //float dist = math.getDistance(recs[0].x, recs[0].y, recs[1].x, recs[1].y);
+        /*line.height = abs(recs[1].y-recs[0].y);
+        line.width = abs(recs[1].x-recs[0].x);
+        line.x = std::min(recs[0].x, recs[1].x);
+        line.y = std::min(recs[0].y, recs[1].y);*/
+
+        for (int i=0;i<100;i++)
+        {
+            if (recs[i].condition == recs[0].sick)
+            {
+                recs[i].sneeze(100, 100, recs);
+            }
+        }
+    }
+        //app.draw(line.getRect());
 
     for (int i=0; i<rectangles; i++)
     {

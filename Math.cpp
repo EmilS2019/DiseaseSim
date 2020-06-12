@@ -21,5 +21,6 @@ void Math::normal(int length, double* result)
 
 float Math::getDistance(float x1, float y1, float x2, float y2)
 {
+    //Thank you Pythagoras!
     return sqrt(pow((x2-x1),2)+pow((y2-y1),2));
 }

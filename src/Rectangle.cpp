@@ -1,5 +1,7 @@
 #include "Rectangle.h"
-
+#include "../Math.h"
+#include <iostream>
+#define LOG(x) std::cout << x << std::endl
 Rectangle::Rectangle(float x, float y, float width, float height, sf::Color c)
 {
     this->color = c;
@@ -7,6 +9,48 @@ Rectangle::Rectangle(float x, float y, float width, float height, sf::Color c)
     this->y = y;
     this->width=width;
     this->height=height;
+    this->condition = suceptible;
+    this->math = Math();
+}
+
+void Rectangle::changeCondition(conditions condition)
+{
+    switch(condition)
+    {
+        case sick:
+            this->color = sf::Color(150,170,100);
+            break;
+        default:
+            break;
+
+    }
+
+    this->condition=condition;
+}
+
+Rectangle::~Rectangle()
+{
+
+}
+
+void Rectangle::die()
+{
+    this->x = 0;
+    this->y = 0;
+    this->width=0;
+    this->height=0;
+}
+
+void Rectangle::sneeze(float range, int arrayLenght, Rectangle* suceptibles)
+{
+
+    for(int i=0; i<arrayLenght; i++)
+    {
+        if (suceptibles[i].condition == suceptible && math.getDistance(x, y, suceptibles[i].x, suceptibles[i].y) <= range)
+        {
+            suceptibles[i].changeCondition(sick);
+        }
+    }
 }
 
 Rectangle::Rectangle()

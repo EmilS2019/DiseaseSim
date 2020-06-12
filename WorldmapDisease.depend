@@ -622,7 +622,7 @@
 
 1589974667 c:\users\emil\documents\codeblocks programms\worldmapdisease\include\matrix.h
 
-1591542769 source:e:\projects\2020\juni\diseasesim\main.cpp
+1591886982 source:e:\projects\2020\juni\diseasesim\main.cpp
 	<SFML/Graphics.hpp>
 	<iostream>
 	"Rectangle.h"
@@ -641,8 +641,9 @@
 	"SFML/System.hpp"
 	"SFML/Network.hpp"
 
-1591540239 e:\projects\2020\juni\diseasesim\include\rectangle.h
+1591886099 e:\projects\2020\juni\diseasesim\include\rectangle.h
 	<SFML/Graphics.hpp>
+	"../Math.h"
 
 1591259497 e:\projects\2020\juni\diseasesim\include\matrix.h
 
@@ -651,8 +652,10 @@
 	<iostream>
 	<iterator>
 
-1591540311 source:e:\projects\2020\juni\diseasesim\src\rectangle.cpp
+1591889149 source:e:\projects\2020\juni\diseasesim\src\rectangle.cpp
 	"Rectangle.h"
+	"../Math.h"
+	<iostream>
 	<math.h>
 	"SFML/Window.hpp"
 
@@ -1065,12 +1068,12 @@
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Window/GlResource.hpp>
 
-1591536360 e:\projects\2020\juni\diseasesim\\math.h
+1591882684 e:\projects\2020\juni\diseasesim\\math.h
 
-1591536444 source:e:\projects\2020\juni\diseasesim\math.cpp
+1591878120 source:e:\projects\2020\juni\diseasesim\math.cpp
 	"Math.h"
 	<random>
 	<string>
 
-1591536360 e:\projects\2020\juni\diseasesim\math.h
+1591882684 e:\projects\2020\juni\diseasesim\math.h
 
