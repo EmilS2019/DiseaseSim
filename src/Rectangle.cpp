@@ -11,6 +11,8 @@ Rectangle::Rectangle(float x, float y, float width, float height, sf::Color c)
     this->height=height;
     this->condition = suceptible;
     this->math = Math();
+    this->sneezing = false;
+    this->sneezeRadius = 0;
 }
 
 void Rectangle::changeCondition(conditions condition)
@@ -24,7 +26,7 @@ void Rectangle::changeCondition(conditions condition)
             break;
 
     }
-
+    //
     this->condition=condition;
 }
 
@@ -41,15 +43,27 @@ void Rectangle::die()
     this->height=0;
 }
 
-void Rectangle::sneeze(float range, int arrayLenght, Rectangle* suceptibles)
+void Rectangle::sneeze(float range, int arrayLenght, Rectangle* rectangles)
 {
-
+    //Logic
     for(int i=0; i<arrayLenght; i++)
     {
-        if (suceptibles[i].condition == suceptible && math.getDistance(x, y, suceptibles[i].x, suceptibles[i].y) <= range)
+        if (rectangles[i].condition == suceptible && math.getDistance(x, y, rectangles[i].x, rectangles[i].y) <= range)
         {
-            suceptibles[i].changeCondition(sick);
+            rectangles[i].changeCondition(sick);
         }
+    }
+}
+
+void Rectangle::sneezeAnimation()
+{
+    sneezeRadius+=0.01;
+    if (sneezeRadius < 100)
+    {
+        sf::CircleShape circle(sneezeRadius);
+        circle.setFillColor(sf::Color(255,255,255,200-sneezeRadius*2));
+        circle.setPosition(sf::Vector2f(300-sneezeRadius, 300-sneezeRadius));
+//        app.draw(circle);
     }
 }
 

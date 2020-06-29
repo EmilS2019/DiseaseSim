@@ -14,12 +14,21 @@
 				<Compiler>
 					<Add directory="include" />
 					<Add directory="./" />
+					<Add directory="C:/SFML-2.5.1" />
+					<Add directory="C:/SFML-2.5.1/bin" />
+					<Add directory="C:/SFML-2.5.1/include" />
+					<Add directory="C:/SFML-2.5.1/lib" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
 					<Add library="sfml-graphics-d" />
 					<Add library="sfml-window-d" />
 					<Add library="sfml-system-d" />
+					<Add directory="C:/SFML-2.5.1/" />
+					<Add directory="C:/SFML-2.5.1" />
+					<Add directory="C:/SFML-2.5.1/bin" />
+					<Add directory="C:/SFML-2.5.1/lib" />
+					<Add directory="C:/SFML-2.5.1/include" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -29,8 +38,14 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add option="-DSFML_STATIC" />
 					<Add directory="include" />
 					<Add directory="./" />
+					<Add directory="C:/SFML-2.5.1/lib" />
+					<Add directory="C:/SFML-2.5.1/include" />
+					<Add directory="C:/SFML-2.5.1 vs" />
+					<Add directory="C:/SFML-2.5.1/bin" />
+					<Add directory="C:/SFML-2.5.1" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -42,8 +57,14 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
+			<Add option="-std=c++1y" />
 			<Add option="-std=gnu++14" />
 			<Add directory="E:/SFML-2.5.1/include" />
+			<Add directory="C:/SFML-2.5.1/lib" />
+			<Add directory="C:/SFML-2.5.1/include" />
+			<Add directory="C:/SFML-2.5.1 vs" />
+			<Add directory="C:/SFML-2.5.1/bin" />
+			<Add directory="C:/SFML-2.5.1" />
 		</Compiler>
 		<Linker>
 			<Add library="mingw32" />
@@ -63,6 +84,9 @@
 		<Unit filename="src/Rectangle.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
+			<code_completion />
+			<envvars />
+			<debugger />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

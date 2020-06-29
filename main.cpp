@@ -40,26 +40,58 @@ void init()
 }
 Rectangle line = Rectangle(100,100,1,400,sf::Color(255,255,255));
 
+//float dist = math.getDistance(recs[0].x, recs[0].y, recs[1].x, recs[1].y);
+/*line.height = abs(recs[1].y-recs[0].y);
+line.width = abs(recs[1].x-recs[0].x);
+line.x = std::min(recs[0].x, recs[1].x);
+line.y = std::min(recs[0].y, recs[1].y);*/
+
+
+void sneezeAnimation(int x, int y, float sneezeRadius)
+{
+    if (sneezeRadius < 100)
+    {
+        sf::CircleShape circle(sneezeRadius);
+        circle.setFillColor(sf::Color(200,255,200,200-sneezeRadius*2));
+        circle.setPosition(sf::Vector2f(x-sneezeRadius, y-sneezeRadius));
+        app.draw(circle);
+    }
+}
+float sneezeAnimArray[rectangles][3];
 
 void update()
 {
     if (n%100 == 0)
     {
-        //float dist = math.getDistance(recs[0].x, recs[0].y, recs[1].x, recs[1].y);
-        /*line.height = abs(recs[1].y-recs[0].y);
-        line.width = abs(recs[1].x-recs[0].x);
-        line.x = std::min(recs[0].x, recs[1].x);
-        line.y = std::min(recs[0].y, recs[1].y);*/
 
-        for (int i=0;i<100;i++)
+     for (int i=0;i<100;i++)
         {
             if (recs[i].condition == recs[0].sick)
             {
                 recs[i].sneeze(100, 100, recs);
+                if (recs[i].sneezeRadius < 100)
+                {
+                    recs[i].sneezeRadius += 5;
+                }
+                else{
+                    recs[i].sneezeRadius = 0;
+                }
+
+                sneezeAnimArray[i][0] = recs[i].x;
+                sneezeAnimArray[i][1] = recs[i].y;
+                sneezeAnimArray[i][2] = recs[i].sneezeRadius;
             }
         }
     }
-        //app.draw(line.getRect());
+
+    for(int i=0;i<rectangles;i++)
+    {
+        sneezeAnimation(sneezeAnimArray[i][0], sneezeAnimArray[i][1], sneezeAnimArray[i][2]);
+    }
+
+
+
+    //app.draw(line.getRect());
 
     for (int i=0; i<rectangles; i++)
     {
@@ -76,6 +108,10 @@ void update()
         if (rot < numberOfRotations){rot++;} else{rot=0;}
     }
     n++;
+
+
+
+
 }
 
 //sf::RenderWindow app2(sf::VideoMode(500, 500), "Options menu", sf::Style::Close);
