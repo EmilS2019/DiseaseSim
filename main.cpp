@@ -21,7 +21,8 @@ int const numberOfRotations = 50;
 double norm[numberOfRotations] = {};
 int rot = 0;
 float initialSpeed = 0.25;
-
+float immunityRate = 1.8;
+float deathRate = 5;
 void init()
 {
     LOG("Yee haw howdy partner");
@@ -73,7 +74,7 @@ void update()
             recs[i].sneeze(100, 100, recs);
             animationForRecI[i] = true;
 
-            if (recs[i].health > 0) {recs[i].health -= 5;} else{recs[i].changeCondition(Rectangle::dead);}
+            if (recs[i].health > 0) {recs[i].health -= deathRate;} else{recs[i].changeCondition(Rectangle::dead);}
         }
 
         if (animationForRecI[i] == true)
@@ -84,7 +85,7 @@ void update()
 
         if (rand()%1000 == 1 && recs[i].condition == Rectangle::sick)
         {
-            recs[i].immunity += 1;
+            recs[i].immunity += immunityRate;
         }
 
         if (recs[i].immunity >= 10)
@@ -112,10 +113,35 @@ void update()
     n++;
 }
 
+#include <stdlib.h>
+#include <time.h>
+#include <stdio.h>
+//This copy-paste code somehow makes the rest of the simulation non-deterministic. Don't ask why.
+int test()
+{
+    unsigned long j;
+    srand( (unsigned)time(NULL) );
+
+    for( j = 0; j < 100; ++j )
+    {
+        int n;
+
+        /* skip rand() readings that would make n%6 non-uniformly distributed
+          (assuming rand() itself is uniformly distributed from 0 to RAND_MAX) */
+        while( ( n = rand() ) > RAND_MAX - (RAND_MAX-5)%6 )
+        { /* bad value retrieved so get next one */ }
+
+        printf( "%d,\t%d\n", n, n % 6 + 1 );
+    }
+
+    return 0;
+}
+
 //sf::RenderWindow app2(sf::VideoMode(500, 500), "Options menu", sf::Style::Close);
 
 int main()
 {
+    test();
     init();
     while (app.isOpen())
     {
