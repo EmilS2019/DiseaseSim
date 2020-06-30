@@ -20,6 +20,7 @@ int n = 0;
 int const numberOfRotations = 50;
 double norm[numberOfRotations] = {};
 int rot = 0;
+float initialSpeed = 0.25;
 
 void init()
 {
@@ -33,7 +34,7 @@ void init()
         float xvel = rand()%10;
         float yvel = rand()%10;
 
-        recs[i].setVelocity(0.01-xvel/100, 0.01-yvel/100);
+        recs[i].setVelocity(0.01-xvel/(50/initialSpeed), 0.01-yvel/(50/initialSpeed));
     }
 
     math.normal(numberOfRotations, norm);
@@ -49,9 +50,13 @@ line.width = abs(recs[1].x-recs[0].x);
 line.x = std::min(recs[0].x, recs[1].x);
 line.y = std::min(recs[0].y, recs[1].y);*/
 
+float sneezeSpeed = 0.2;
 
-void sneezeAnimation(int x, int y, float sneezeRadius)
+bool animationForRecI[rectangles];
+
+void sneezeAnimation(int x, int y, float sneezeRadius, int i)
 {
+    recs[i].sneezeRadius += sneezeSpeed;
     if (sneezeRadius < 100)
     {
         sf::CircleShape circle(sneezeRadius);
@@ -59,19 +64,18 @@ void sneezeAnimation(int x, int y, float sneezeRadius)
         circle.setPosition(sf::Vector2f(x-sneezeRadius, y-sneezeRadius));
         app.draw(circle);
     }
+    else
+    {
+        animationForRecI[i] = false;
+        recs[i].sneezeRadius = 0;
+    }
 }
-float sneezeAnimArray[rectangles][4];
-float sneezeSpeed = 0.05;
 
-bool animationForRecI[rectangles];
 
 void update()
 {
     for (int i=0;i<100;i++)
     {
-        sneezeAnimArray[i][0] = recs[i].x;
-        sneezeAnimArray[i][1] = recs[i].y;
-
         if (recs[i].condition == recs[0].sick && rand()%2000 == 1)
         {
             recs[i].sneeze(100, 100, recs);
@@ -80,40 +84,9 @@ void update()
 
         if (animationForRecI[i] == true)
         {
-            recs[i].sneezeRadius += sneezeSpeed;
-            sneezeAnimation(recs[i].x, recs[i].y, recs[i].sneezeRadius);
-            if (recs[i].sneezeRadius >= 100)
-            {
-                animationForRecI[i] = false;
-            }
+            sneezeAnimation(recs[i].x, recs[i].y, recs[i].sneezeRadius, i);
         }
     }
-
-    for(int i=0;i<rectangles;i++)
-    {
-        //animationForRecI[i] ? sneezeAnimation(recs[i].x, recs[i].y, recs[i].sneezeRadius) : continue;
-    }
-
-    /*for(int i=0;i<rectangles;i++)
-    {
-        if ((sneezeAnimArray[i][0] && sneezeAnimArray[i][1]) || sneezeAnimArray[i][3] != 0)
-        {
-            if (sneezeAnimArray[i][2] < 100)
-            {
-                sneezeAnimArray[i][2] += sneezeSpeed;
-            }
-            else
-            {
-                sneezeAnimArray[i][2] = 0;
-                sneezeAnimArray[i][3] = 0;
-            }
-
-            sneezeAnimation(sneezeAnimArray[i][0], sneezeAnimArray[i][1], sneezeAnimArray[i][2]);
-        }
-    }*/
-
-
-
     //app.draw(line.getRect());
 
     for (int i=0; i<rectangles; i++)
