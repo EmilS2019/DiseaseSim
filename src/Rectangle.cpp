@@ -11,20 +11,26 @@ Rectangle::Rectangle(float x, float y, float width, float height, sf::Color c)
     this->height=height;
     this->condition = suceptible;
     this->math = Math();
-    this->sneezing = false;
-    this->sneezeRadius = 0;
+    this->health = 25;
 }
 
 void Rectangle::changeCondition(conditions condition)
 {
     switch(condition)
     {
+        case suceptible:
+            break;
         case sick:
             this->color = sf::Color(150,170,100);
             break;
-        default:
+        case dead:
+            setVelocity(0, 0);
+            this->condition = dead;
+            this->color = sf::Color(50,50,70,255);
             break;
-
+        case immune:
+            this->color = sf::Color(50,50,220,255);
+            break;
     }
     //
     this->condition=condition;
@@ -33,14 +39,6 @@ void Rectangle::changeCondition(conditions condition)
 Rectangle::~Rectangle()
 {
 
-}
-
-void Rectangle::die()
-{
-    this->x = 0;
-    this->y = 0;
-    this->width=0;
-    this->height=0;
 }
 
 void Rectangle::sneeze(float range, int arrayLenght, Rectangle* rectangles)
@@ -52,18 +50,6 @@ void Rectangle::sneeze(float range, int arrayLenght, Rectangle* rectangles)
         {
             rectangles[i].changeCondition(sick);
         }
-    }
-}
-
-void Rectangle::sneezeAnimation()
-{
-    sneezeRadius+=0.01;
-    if (sneezeRadius < 100)
-    {
-        sf::CircleShape circle(sneezeRadius);
-        circle.setFillColor(sf::Color(255,255,255,200-sneezeRadius*2));
-        circle.setPosition(sf::Vector2f(300-sneezeRadius, 300-sneezeRadius));
-//        app.draw(circle);
     }
 }
 

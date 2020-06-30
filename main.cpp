@@ -42,13 +42,6 @@ void init()
 
     recs[6].changeCondition(recs[6].sick);
 }
-Rectangle line = Rectangle(100,100,1,400,sf::Color(255,255,255));
-
-//float dist = math.getDistance(recs[0].x, recs[0].y, recs[1].x, recs[1].y);
-/*line.height = abs(recs[1].y-recs[0].y);
-line.width = abs(recs[1].x-recs[0].x);
-line.x = std::min(recs[0].x, recs[1].x);
-line.y = std::min(recs[0].y, recs[1].y);*/
 
 float sneezeSpeed = 0.2;
 
@@ -71,7 +64,6 @@ void sneezeAnimation(int x, int y, float sneezeRadius, int i)
     }
 }
 
-
 void update()
 {
     for (int i=0;i<100;i++)
@@ -80,11 +72,25 @@ void update()
         {
             recs[i].sneeze(100, 100, recs);
             animationForRecI[i] = true;
+
+            if (recs[i].health > 0) {recs[i].health -= 5;} else{recs[i].changeCondition(Rectangle::dead);}
         }
 
         if (animationForRecI[i] == true)
         {
             sneezeAnimation(recs[i].x, recs[i].y, recs[i].sneezeRadius, i);
+        }
+
+
+        if (rand()%1000 == 1 && recs[i].condition == Rectangle::sick)
+        {
+            recs[i].immunity += 1;
+        }
+
+        if (recs[i].immunity >= 10)
+        {
+            recs[i].changeCondition(Rectangle::immune);
+
         }
     }
     //app.draw(line.getRect());
@@ -104,10 +110,6 @@ void update()
         if (rot < numberOfRotations){rot++;} else{rot=0;}
     }
     n++;
-
-
-
-
 }
 
 //sf::RenderWindow app2(sf::VideoMode(500, 500), "Options menu", sf::Style::Close);
@@ -151,3 +153,9 @@ int main()
     return EXIT_SUCCESS;
 }
 
+//Rectangle line = Rectangle(100,100,1,400,sf::Color(255,255,255));
+//float dist = math.getDistance(recs[0].x, recs[0].y, recs[1].x, recs[1].y);
+/*line.height = abs(recs[1].y-recs[0].y);
+line.width = abs(recs[1].x-recs[0].x);
+line.x = std::min(recs[0].x, recs[1].x);
+line.y = std::min(recs[0].y, recs[1].y);*/

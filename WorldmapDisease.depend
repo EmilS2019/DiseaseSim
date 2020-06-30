@@ -1077,7 +1077,7 @@
 
 1591882684 e:\projects\2020\juni\diseasesim\math.h
 
-1593473242 source:c:\users\emil\documents\programming projects\2020\june\diseasesim\main.cpp
+1593508538 source:c:\users\emil\documents\programming projects\2020\june\diseasesim\main.cpp
 	<SFML/Graphics.hpp>
 	<iostream>
 	"Rectangle.h"
@@ -1086,7 +1086,7 @@
 	"Rectangle.h"
 	"Math.h"
 
-1592503753 c:\users\emil\documents\programming projects\2020\june\diseasesim\include\rectangle.h
+1593509022 c:\users\emil\documents\programming projects\2020\june\diseasesim\include\rectangle.h
 	<SFML/Graphics.hpp>
 	"../Math.h"
 
@@ -1106,7 +1106,7 @@
 	<iostream>
 	<iterator>
 
-1593454210 source:c:\users\emil\documents\programming projects\2020\june\diseasesim\src\rectangle.cpp
+1593509053 source:c:\users\emil\documents\programming projects\2020\june\diseasesim\src\rectangle.cpp
 	"Rectangle.h"
 	"../Math.h"
 	<iostream>

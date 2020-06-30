@@ -28,13 +28,12 @@ class Rectangle
 
         enum conditions {suceptible, sick, dead, immune};
         void sneeze(float range, int arrayLenght, Rectangle* suceptibles);
-        void sneezeAnimation();
-        bool sneezing;
         float sneezeRadius;
 
-        void die();
         void changeCondition(conditions condition);
         conditions condition;
+        float health;
+        float immunity;
 
 
     private:
