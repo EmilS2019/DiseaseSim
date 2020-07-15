@@ -11,7 +11,7 @@ Rectangle::Rectangle(float x, float y, float width, float height, sf::Color c)
     this->height=height;
     this->condition = suceptible;
     this->math = Math();
-    this->health = 25;
+    this->health = 10;
 }
 
 void Rectangle::changeCondition(conditions condition)
@@ -36,14 +36,10 @@ void Rectangle::changeCondition(conditions condition)
     this->condition=condition;
 }
 
-Rectangle::~Rectangle()
-{
-
-}
+Rectangle::~Rectangle(){}
 
 void Rectangle::sneeze(float range, int arrayLenght, Rectangle* rectangles)
 {
-    //Logic
     for(int i=0; i<arrayLenght; i++)
     {
         if (rectangles[i].condition == suceptible && math.getDistance(x, y, rectangles[i].x, rectangles[i].y) <= range)
@@ -53,10 +49,7 @@ void Rectangle::sneeze(float range, int arrayLenght, Rectangle* rectangles)
     }
 }
 
-Rectangle::Rectangle()
-{
-
-}
+Rectangle::Rectangle(){}
 
 sf::RectangleShape Rectangle::getRect()
 {
@@ -103,14 +96,14 @@ void Rectangle::rotateRect(float radians)
 }
 
 #include "SFML/Window.hpp"
-void Rectangle::avoidEdge()
+void Rectangle::avoidEdge(int screenWidth, int screenHeight)
 {
-    if(x + width > 1000 || x - width < 0)
+    if(x + width > screenWidth || x - width < 0)
     {
         velVector[0] *= -1;
     }
 
-    if(y + height > 1000 || y - height < 0)
+    if(y + height > screenHeight || y - height < 0)
     {
         velVector[1] *= -1;
     }

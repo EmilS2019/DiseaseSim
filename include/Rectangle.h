@@ -15,7 +15,7 @@ class Rectangle
 
         void Move(float dx, float dy);
         void rotateRect(float radians);
-        void avoidEdge();
+        void avoidEdge(int screenWidth, int screenHeight);
         void randomRotation(int tenthPercentileOdds,float rotation);
 
         sf::RectangleShape getRect();

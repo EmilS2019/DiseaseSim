@@ -4,11 +4,13 @@
 #include "Matrix.h"
 #define LOG(x) std::cout << x << std::endl
 #include <math.h>
-
-#include "Rectangle.h"
 #include "Math.h"
+#include "Timing.h"
 
-sf::RenderWindow app(sf::VideoMode(1000, 1000), "Disease Simulator", sf::Style::Close);
+int screenWidth = 900;
+int screenHeight = 900;
+
+sf::RenderWindow app(sf::VideoMode(screenWidth, screenHeight), "Disease Simulator", sf::Style::Close);
 
 Math math;
 
@@ -20,9 +22,11 @@ int n = 0;
 int const numberOfRotations = 50;
 double norm[numberOfRotations] = {};
 int rot = 0;
-float initialSpeed = 0.25;
-float immunityRate = 1.8;
-float deathRate = 5;
+float initialSpeed = 0.4;
+float immunityRate = 4;
+float deathRate = 2;
+
+
 void init()
 {
     LOG("Yee haw howdy partner");
@@ -31,7 +35,7 @@ void init()
 
     for (int i=0; i<rectangles; i++)
     {
-        recs[i]=Rectangle(rand()%(50+950), rand()%(50+950), 20, 20, sf::Color(200,110,120));
+        recs[i] = Rectangle(rand()%(50+(screenWidth-50)), rand()%(50+(screenHeight-50)), 20, 20, sf::Color(200,110,120));
         float xvel = rand()%10;
         float yvel = rand()%10;
 
@@ -42,6 +46,7 @@ void init()
 
 
     recs[6].changeCondition(recs[6].sick);
+
 }
 
 float sneezeSpeed = 0.2;
@@ -63,7 +68,9 @@ void sneezeAnimation(int x, int y, float sneezeRadius, int i)
         animationForRecI[i] = false;
         recs[i].sneezeRadius = 0;
     }
+
 }
+#include <fstream>
 
 void update()
 {
@@ -71,10 +78,13 @@ void update()
     {
         if (recs[i].condition == recs[0].sick && rand()%2000 == 1)
         {
-            recs[i].sneeze(100, 100, recs);
+            recs[i].sneeze(100, rectangles, recs);
             animationForRecI[i] = true;
 
-            if (recs[i].health > 0) {recs[i].health -= deathRate;} else{recs[i].changeCondition(Rectangle::dead);}
+            if (recs[i].health > 0) {recs[i].health -= deathRate;}
+            else {
+                recs[i].changeCondition(Rectangle::dead);
+            }
         }
 
         if (animationForRecI[i] == true)
@@ -83,25 +93,23 @@ void update()
         }
 
 
-        if (rand()%1000 == 1 && recs[i].condition == Rectangle::sick)
+        if (recs[i].condition == Rectangle::sick && rand()%2000 == 1)
         {
             recs[i].immunity += immunityRate;
-        }
 
-        if (recs[i].immunity >= 10)
-        {
-            recs[i].changeCondition(Rectangle::immune);
-
+            if (recs[i].immunity >= 10)
+            {
+                recs[i].changeCondition(Rectangle::immune);
+            }
         }
     }
-    //app.draw(line.getRect());
+
 
     for (int i=0; i<rectangles; i++)
     {
-        //re.rotateRect(norm[rot]);
         recs[i].Move(recs[i].velVector[0],recs[i].velVector[1]);
         app.draw(recs[i].getRect());
-        recs[i].avoidEdge();
+        recs[i].avoidEdge(screenWidth, screenHeight);
     }
 
     if (n%20 == 0)
@@ -110,7 +118,23 @@ void update()
         recs[X].randomRotation(3, norm[rot]);
         if (rot < numberOfRotations){rot++;} else{rot=0;}
     }
+
+    if (n%50 == 0)
+    {
+        int statistics[4];
+        for (int i = 0; i<rectangles; i++)
+        {
+            statistics[0]+=(recs[i].condition == Rectangle::suceptible);
+            statistics[1]+=(recs[i].condition == Rectangle::sick);
+            statistics[2]+=(recs[i].condition == Rectangle::immune);
+            statistics[3]+=(recs[i].condition == Rectangle::dead);
+        }
+
+        LOG(statistics[1]);
+    }
     n++;
+
+
 }
 
 #include <stdlib.h>
@@ -131,14 +155,13 @@ int test()
         while( ( n = rand() ) > RAND_MAX - (RAND_MAX-5)%6 )
         { /* bad value retrieved so get next one */ }
 
-        printf( "%d,\t%d\n", n, n % 6 + 1 );
+        //printf( "%d,\t%d\n", n, n % 6 + 1 );
     }
 
     return 0;
 }
 
-//sf::RenderWindow app2(sf::VideoMode(500, 500), "Options menu", sf::Style::Close);
-
+#include <string>
 int main()
 {
     test();
@@ -159,29 +182,6 @@ int main()
         }
         // Update the window
         app.display();
-
-
-        //weird test
-        /*while (app2.isOpen())
-        {
-             sf::Event event;
-            while (app2.pollEvent(event))
-            {
-                // Close window : exit
-                if (event.type == sf::Event::Closed)
-                    app2.close();
-            }
-            // Update the window
-            app2.display();
-        }*/
     }
-
     return EXIT_SUCCESS;
 }
-
-//Rectangle line = Rectangle(100,100,1,400,sf::Color(255,255,255));
-//float dist = math.getDistance(recs[0].x, recs[0].y, recs[1].x, recs[1].y);
-/*line.height = abs(recs[1].y-recs[0].y);
-line.width = abs(recs[1].x-recs[0].x);
-line.x = std::min(recs[0].x, recs[1].x);
-line.y = std::min(recs[0].y, recs[1].y);*/
