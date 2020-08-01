@@ -16,7 +16,7 @@ Math math;
 
 int const rectangles = 100;
 Rectangle recs[rectangles];
-int n = 0;
+int n = 1;
 
 int const numberOfRotations = 50;
 double norm[numberOfRotations] = {};
@@ -24,6 +24,8 @@ int rot = 0;
 float initialSpeed = 0.4;
 float immunityRate = 4;
 float deathRate = 2;
+#include <fstream>
+std::ofstream data("data.csv");
 
 
 void init()
@@ -44,7 +46,7 @@ void init()
 
 
     recs[6].changeCondition(recs[6].sick);
-
+    data << "Time,Susceptible,Sick,Immune,Dead,\n";
 }
 
 float sneezeSpeed = 0.2;
@@ -66,10 +68,7 @@ void sneezeAnimation(int x, int y, float sneezeRadius, int i)
         animationForRecI[i] = false;
         recs[i].sneezeRadius = 0;
     }
-
 }
-#include <fstream>
-std::ofstream data("data.csv");
 
 void update()
 {
@@ -102,8 +101,6 @@ void update()
             }
         }
     }
-
-
     for (int i=0; i<rectangles; i++)
     {
         recs[i].Move(recs[i].velVector[0],recs[i].velVector[1]);
@@ -129,18 +126,20 @@ void update()
             statistics[3]+=(recs[i].condition == Rectangle::dead);
         }
 
-        data << n/50;
-        data << ",";
-        for (int i = 0; i<4; i++)
+        //This if statement prevents a bug where there's like 30000 recorded immune people.
+        if (statistics[3] < rectangles)
         {
-            data << statistics[i];
+            data << n/50;
             data << ",";
+            for (int i = 0; i<4; i++)
+            {
+                data << statistics[i];
+                data << ",";
+            }
         }
         data << "\n";
     }
     n++;
-
-
 }
 
 #include <stdlib.h>
@@ -160,10 +159,7 @@ int test()
           (assuming rand() itself is uniformly distributed from 0 to RAND_MAX) */
         while( ( n = rand() ) > RAND_MAX - (RAND_MAX-5)%6 )
         { /* bad value retrieved so get next one */ }
-
-        //printf( "%d,\t%d\n", n, n % 6 + 1 );
     }
-
     return 0;
 }
 
