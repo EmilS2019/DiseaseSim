@@ -52,6 +52,7 @@
 					<Add library="sfml-graphics" />
 					<Add library="sfml-window" />
 					<Add library="sfml-system" />
+					<Add directory="C:/SFML-2.5.1/lib" />
 				</Linker>
 			</Target>
 		</Build>

@@ -7,14 +7,13 @@
 #include "Math.h"
 #include "Timing.h"
 
-int screenWidth = 900;
-int screenHeight = 900;
+int screenWidth = 600;
+int screenHeight = 600;
 
 sf::RenderWindow app(sf::VideoMode(screenWidth, screenHeight), "Disease Simulator", sf::Style::Close);
 
 Math math;
 
-float values[2]= {4,42};
 int const rectangles = 100;
 Rectangle recs[rectangles];
 int n = 0;
@@ -31,7 +30,6 @@ void init()
 {
     LOG("Yee haw howdy partner");
 
-    //Matrix mtrx(values);
 
     for (int i=0; i<rectangles; i++)
     {
@@ -71,6 +69,7 @@ void sneezeAnimation(int x, int y, float sneezeRadius, int i)
 
 }
 #include <fstream>
+std::ofstream data("data.csv");
 
 void update()
 {
@@ -130,7 +129,14 @@ void update()
             statistics[3]+=(recs[i].condition == Rectangle::dead);
         }
 
-        LOG(statistics[1]);
+        data << n/50;
+        data << ",";
+        for (int i = 0; i<4; i++)
+        {
+            data << statistics[i];
+            data << ",";
+        }
+        data << "\n";
     }
     n++;
 
@@ -178,7 +184,10 @@ int main()
         {
             // Close window : exit
             if (event.type == sf::Event::Closed)
+            {
                 app.close();
+                data.close();
+            }
         }
         // Update the window
         app.display();
