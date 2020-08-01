@@ -7,23 +7,23 @@
 #include "Math.h"
 #include "Timing.h"
 
-int screenWidth = 600;
-int screenHeight = 600;
+int screenWidth = 800;
+int screenHeight = 800;
 
 sf::RenderWindow app(sf::VideoMode(screenWidth, screenHeight), "Disease Simulator", sf::Style::Close);
 
 Math math;
 
-int const rectangles = 100;
+int const rectangles = 150;
 Rectangle recs[rectangles];
 int n = 1;
 
 int const numberOfRotations = 50;
 double norm[numberOfRotations] = {};
 int rot = 0;
-float initialSpeed = 0.4;
+float initialSpeed = 0.2;
 float immunityRate = 4;
-float deathRate = 2;
+float deathRate = 2.2;
 #include <fstream>
 std::ofstream data("data.csv");
 
